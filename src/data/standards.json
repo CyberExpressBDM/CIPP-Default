@@ -6304,5 +6304,196 @@
       "EXCHANGE_S_ENTERPRISE_GOV",
       "EXCHANGE_LITE"
     ]
+  },
+  {
+    "name": "standards.SPDisableCustomScripts",
+    "cat": "SharePoint Standards",
+    "tag": [],
+    "helpText": "Prevents users from running custom scripts on SharePoint and OneDrive sites. Custom scripts can modify site behaviors and bypass governance controls.",
+    "docsDescription": "Disables the ability to add and run custom scripts on SharePoint and OneDrive sites at the tenant level. When custom scripts are allowed, governance cannot be enforced, and the capabilities of inserted code cannot be scoped or blocked. Microsoft recommends using the SharePoint Framework instead of custom scripts.",
+    "executiveText": "Blocks custom scripts from being added to SharePoint and OneDrive sites, enforcing governance controls and preventing unscoped code execution. This aligns with Microsoft's Baseline Security Mode recommendation to permanently remove the ability to add new custom scripts, directing organizations to use the SharePoint Framework instead.",
+    "addedComponent": [],
+    "label": "Disable custom scripts on SharePoint sites",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "addedDate": "2026-04-28",
+    "powershellEquivalent": "Set-SPOTenant -CustomScriptsRestrictMode $true",
+    "recommendedBy": ["CIPP"],
+    "requiredCapabilities": [
+      "SHAREPOINTWAC",
+      "SHAREPOINTSTANDARD",
+      "SHAREPOINTENTERPRISE",
+      "SHAREPOINTENTERPRISE_EDU",
+      "ONEDRIVE_BASIC",
+      "ONEDRIVE_ENTERPRISE"
+    ]
+  },
+  {
+    "name": "standards.SPDisableStoreAccess",
+    "cat": "SharePoint Standards",
+    "tag": [],
+    "helpText": "Disables end users from installing applications from the Microsoft Store into SharePoint sites.",
+    "docsDescription": "Removes the ability for end users to install applications directly from the Microsoft Store into SharePoint. This prevents uncontrolled app installations that can increase governance costs and go against organizational policies.",
+    "executiveText": "Prevents end users from installing applications from the Microsoft Store into SharePoint sites, ensuring that only approved applications are available. This reduces governance overhead and aligns with Microsoft's Baseline Security Mode recommendations.",
+    "addedComponent": [],
+    "label": "Disable SharePoint Store access",
+    "impact": "Low Impact",
+    "impactColour": "info",
+    "addedDate": "2026-04-28",
+    "powershellEquivalent": "Set-SPOTenant -DisableSharePointStoreAccess $true",
+    "recommendedBy": ["CIPP"],
+    "requiredCapabilities": [
+      "SHAREPOINTWAC",
+      "SHAREPOINTSTANDARD",
+      "SHAREPOINTENTERPRISE",
+      "SHAREPOINTENTERPRISE_EDU",
+      "ONEDRIVE_BASIC",
+      "ONEDRIVE_ENTERPRISE"
+    ]
+  },
+  {
+    "name": "standards.DisableEWS",
+    "cat": "Exchange Standards",
+    "tag": [],
+    "helpText": "Disables Exchange Web Services (EWS) organization-wide. This reduces the attack surface by blocking legacy API access to mailbox data. Warning: This may break Office web add-ins on builds older than 16.0.19127.",
+    "docsDescription": "Disables Exchange Web Services (EWS) at the organization level to reduce attack surface. EWS provides cross-platform API access to sensitive Exchange Online data such as emails, meetings, and contacts. If compromised, attackers can access confidential data, send phishing emails, or spoof identities. Disabling EWS also reduces legacy app usage and minimizes exploitable endpoints. Note that this may break first-party features including web add-ins for Word, Excel, PowerPoint, and Outlook on builds older than 16.0.19127.",
+    "executiveText": "Disables Exchange Web Services (EWS) across the organization to reduce attack surface and prevent legacy API access to sensitive mailbox data. This aligns with Microsoft's Baseline Security Mode recommendation to minimize exploitable endpoints while requiring updates to applications that depend on EWS.",
+    "addedComponent": [],
+    "label": "Disable Exchange Web Services",
+    "impact": "High Impact",
+    "impactColour": "danger",
+    "addedDate": "2026-04-28",
+    "powershellEquivalent": "Set-OrganizationConfig -EwsEnabled $false",
+    "recommendedBy": ["CIPP"],
+    "requiredCapabilities": [
+      "EXCHANGE_S_STANDARD",
+      "EXCHANGE_S_ENTERPRISE",
+      "EXCHANGE_S_STANDARD_GOV",
+      "EXCHANGE_S_ENTERPRISE_GOV",
+      "EXCHANGE_LITE"
+    ]
+  },
+  {
+    "name": "standards.OMEBranding",
+    "cat": "Exchange Standards",
+    "tag": [],
+    "helpText": "Configures the branding applied to Microsoft Purview (OME) encrypted emails, including the logo, background color, and the text recipients see when viewing a protected message. [Read more](https://learn.microsoft.com/en-us/purview/add-your-organization-brand-to-encrypted-messages)",
+    "docsDescription": "Configures Office Message Encryption (OME) branding settings for the tenant default configuration. Allows organizations to apply a custom logo (via URL), background color, button text, and portal text to encrypted emails viewed by external recipients.",
+    "executiveText": "Applies organizational branding to encrypted emails so recipients see a professional, on-brand experience when viewing protected messages. Reinforces brand identity while preserving security compliance.",
+    "addedComponent": [
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.BackgroundColor",
+        "label": "Background Color - Optional",
+        "placeholder": "#ffffff",
+        "helpText": "The background color of the encrypted message wrapper. Enter an HTML hex color code (e.g. #ffffff) or a named color value (e.g. white).",
+        "required": false
+      },
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.LogoUrl",
+        "label": "Logo Image URL - Optional (Less than 40kb 170x70 pixels)",
+        "placeholder": "https://example.com/logo.png or %CustomVarable%",
+        "helpText": "URL to your organization's logo displayed in the encrypted email and the reading portal. Supported formats: PNG, JPG, BMP, TIFF. Optimal size: 170x70 px, max 40 KB.",
+        "required": false
+      },
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.IntroductionText",
+        "label": "Text next to the sender's name and email address - Optional",
+        "placeholder": "has sent you a secure message.",
+        "helpText": "Text that appears next to the sender's name and email address. Maximum 1024 characters.",
+        "required": false
+      },
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.ReadButtonText",
+        "label": "Read Button Text - Optional",
+        "placeholder": "Read Secure Message.",
+        "helpText": "Text that appears on the 'Read Message' button. Maximum 1024 characters.",
+        "required": false
+      },
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.EmailText",
+        "label": "Email Text below the button - Optional",
+        "placeholder": "Encrypted message from Contoso secure messaging system.",
+        "helpText": "Text that appears below the 'Read Message' button. Maximum 1024 characters.",
+        "required": false
+      },
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.PrivacyStatementUrl",
+        "label": "Privacy Statement URL - Optional",
+        "placeholder": "https://contoso.com/privacystatement.html",
+        "helpText": "URL for the Privacy Statement link in the encrypted email notification. Leave blank to use Microsoft's default privacy statement.",
+        "required": false
+      },
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.DisclaimerText",
+        "label": "Disclaimer Statement  - Optional",
+        "placeholder": "This message is confidential for the use of the addressee only.",
+        "helpText": "Disclaimer statement shown in the email that contains the encrypted message. Maximum 1024 characters.",
+        "required": false
+      },
+      {
+        "type": "textField",
+        "name": "standards.OMEBranding.PortalText",
+        "label": "Text appears at the top of the encrypted mail viewing portal  - Optional",
+        "placeholder": "Contoso secure email portal.",
+        "helpText": "Text that appears at the top of the encrypted mail viewing portal. Maximum 128 characters.",
+        "required": false
+      },
+      {
+        "type": "autoComplete",
+        "multiple": false,
+        "creatable": false,
+        "name": "standards.OMEBranding.OTPEnabled",
+        "label": "One-Time Pass Code - Required",
+        "helpText": "Enable or disable authentication with a one-time pass code. When enabled, recipients without a Microsoft account can verify their identity via a code sent to their email.",
+        "options": [
+          {
+            "label": "Enabled",
+            "value": true
+          },
+          {
+            "label": "Disabled",
+            "value": false
+          }
+        ]
+      },
+      {
+        "type": "autoComplete",
+        "multiple": false,
+        "creatable": false,
+        "name": "standards.OMEBranding.SocialIdSignIn",
+        "label": "Social ID Sign-In - Required",
+        "helpText": "Enable or disable authentication with Microsoft, Google, or Yahoo identities. When enabled, recipients can sign in with an existing social account to view the encrypted message.",
+        "options": [
+          {
+            "label": "Enabled",
+            "value": true
+          },
+          {
+            "label": "Disabled",
+            "value": false
+          }
+        ]
+      }
+    ],
+    "label": "Configure Encrypted Message Branding (OME)",
+    "impact": "Low Impact",
+    "impactColour": "info",
+    "addedDate": "2026-04-25",
+    "powershellEquivalent": "Set-OMEConfiguration",
+    "recommendedBy": [],
+    "requiredCapabilities": [
+      "EXCHANGE_S_STANDARD",
+      "EXCHANGE_S_ENTERPRISE",
+      "EXCHANGE_S_STANDARD_GOV",
+      "EXCHANGE_S_ENTERPRISE_GOV",
+      "EXCHANGE_LITE"
+    ]
   }
 ]
